@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Doctor en Alaska</title>
+   <link rel="icon" type="image/png" href="imagenes/favicon2.png">
+
+  <style>
+    body, html {
+      margin: 0;
+      padding: 0;
+      scroll-behavior: smooth;
+      font-family: 'Segoe UI', sans-serif;
+      background:linear-gradient(to left, #a18800, #f6da67);
+      color: #333;
+    }
+
+    header {
+      background: url(imagenes/degradado.png) center/cover no-repeat;
+      width: 100%;
+      margin-left: 0;
+      height: 100vh;
+      color: white;
+      background-color: linear-gradient(to left, white, rgb(134, 116, 116));;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-shadow: 2px 2px 4px #000;
+      text-align: center;
+    }
+
+    header h1 {
+      font-size: 3rem;
+      margin: 0;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      background: #e2e1df;
+      padding: 20px 20px;
+      
+      z-index: 1000;
+    }
+
+    nav ul {
+      display: flex;
+      justify-content: center;
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    nav ul li {
+      margin: 0 15px;
+    }
+
+    nav ul li a {
+      text-decoration: none;
+      color: #333;
+      font-weight: bold;
+      transition: color 0.3s;
+    }
+
+    nav ul li a:hover {
+        color:#5a4d04;
+        
+    }
+    ul li a:hover {
+        font-size: 22px;
+        text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+         transform: scale(1.2);
+    }
+
+    section {
+      padding: 60px 20px;
+      max-width: 1000px;
+      margin: auto;
+    }
+
+    section img {
+      width: 100%;
+      height: auto;
+      margin-top: 20px;
+      border-radius: 8px;
+    }
+
+    .character-gallery {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .character-gallery img {
+      width: calc(33.333% - 13.33px);
+      border-radius: 8px;
+    }
+    
+    @media (max-width: 768px) {
+      .character-gallery img {
+        width: 100%;
+      }
+
+      nav ul {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      nav ul li {
+        margin: 10px 0;
+      }
+
+      header h1 {
+        font-size: 2rem;
+      }
+    }
+
+    #backToTop {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #333;
+      color: #a18800;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 50%;
+      font-size: 1.5rem;
+      cursor: pointer;
+      display: none;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+      
+    }
+
+   
+    .character {
+  position: relative;
+  width: calc(33.333% - 13.33px);
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.character img {
+  width: 100%;
+  display: block;
+  border-radius: 8px;
+}
+
+.character .nombre {
+  position: absolute;
+  bottom: 0;
+  background: rgba(223, 221, 221, 0.6);
+  color:#5a4d04;
+  font-weight: bold;
+  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  font-size: 1rem;
+  opacity: 0;
+  
+}
+h1:hover{
+  color: #5a4d04;
+  transform: scale(1.2);
+}
+.serie:hover{
+  transform: scale(1.2);
+}
+
+.character:hover .nombre {
+  opacity: 1;
+}
+.character:hover{
+        transform: scale(1.2);
+    }
+
+.carrusel {
+  position: relative;
+  width: 100%;
+  max-width: 800px;
+  margin: 40px auto;
+  overflow: hidden;
+  border-radius: 8px;
+}
+
+.imagen-container {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+}
+
+.imagen-container img {
+  width: 100%;
+  flex-shrink: 0;
+  border-radius: 8px;
+}
+
+.flecha {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.4);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.flecha.izquierda {
+  left: 10px;
+}
+
+.flecha.derecha {
+  right: 10px;
+}
+
+.flecha:hover {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+p{
+    font-size: 19px;
+    text-align: justify;
+    line-height: 2.1em;
+}
+h2{
+    text-align: center;
+}
+h2:hover{color:#5a4d04;
+ text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  transform: scale(1.2);
+}
+li{
+    font-size: 20px;
+}
+.serie{
+    font-size: 22px;
+}
+.galeria{
+    text-align: center;
+    text-align: justify;
+}
+.portada{
+  
+  border-bottom-right-radius: 200px;
+  border-top-left-radius: 200px;
+}
+#personajes{
+border-top: 2px dotted #333;
+width: 80%;
+}
+#galeria{
+border-top: 2px dotted #333;
+width: 80%;
+}
+    footer {
+        background-color: white;
+        color:  #333;/* Color gris para la letra */
+        padding: 9px 9px;
+        text-align: center;
+        width: 100%; /* Ocupa todo el ancho */
+        box-sizing: border-box; /* Asegura que el padding no afecte el ancho total */
+        font-family: 'Segoe UI', sans-serif; /* Mantiene la tipografía */
+        font-size: 0.9rem;
+        border-top: 1px solid #eee; /* Un borde sutil en la parte superior */
+    }
+footer {
+  position: relative;
+  overflow: hidden;
+  /* Otros estilos de tu footer */
+}
+
+.copo-nieve {
+  position: absolute;
+  background-color: #a18800;
+  border-radius: 50%;
+  opacity: 0.7; /* Un poco más de opacidad para que destaquen */
+}
+
+.copo1 {
+  width: 16px;
+  height: 16px;
+  left: 8%;
+  top: -16px;
+  animation: caer1 6s linear infinite;
+}
+
+.copo2 {
+  width: 20px;
+  height: 20px;
+  left: 22%;
+  top: -20px;
+  animation: caer2 8s linear infinite 1s;
+}
+
+.copo3 {
+  width: 14px;
+  height: 14px;
+  left: 36%;
+  top: -14px;
+  animation: caer3 7s linear infinite 2s;
+}
+
+.copo4 {
+  width: 18px;
+  height: 18px;
+  left: 50%;
+  top: -18px;
+  animation: caer4 9s linear infinite 0.5s;
+}
+
+.copo5 {
+  width: 15px;
+  height: 15px;
+  left: 64%;
+  top: -15px;
+  animation: caer5 6.5s linear infinite 1.5s;
+}
+
+.copo6 {
+  width: 17px;
+  height: 17px;
+  left: 78%;
+  top: -17px;
+  animation: caer6 8.5s linear infinite 2.5s;
+}
+
+.copo7 {
+  width: 19px;
+  height: 19px;
+  left: 4%;
+  top: -19px;
+  animation: caer7 7.5s linear infinite 0.8s;
+}
+
+.copo8 {
+  width: 12px;
+  height: 12px;
+  left: 28%;
+  top: -12px;
+  animation: caer8 9.5s linear infinite 1.8s;
+}
+
+.copo9 {
+  width: 22px;
+  height: 22px;
+  left: 42%;
+  top: -22px;
+  animation: caer9 7.8s linear infinite 2.8s;
+}
+
+.copo10 {
+  width: 13px;
+  height: 13px;
+  left: 56%;
+  top: -13px;
+  animation: caer10 9.8s linear infinite 0.2s;
+}
+
+.copo11 {
+  width: 16px;
+  height: 16px;
+  left: 70%;
+  top: -16px;
+  animation: caer11 8.8s linear infinite 1.2s;
+}
+
+.copo12 {
+  width: 14px;
+  height: 14px;
+  left: 84%;
+  top: -14px;
+  animation: caer12 6.8s linear infinite 2.2s;
+}
+
+@keyframes caer1 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+@keyframes caer2 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+@keyframes caer3 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+@keyframes caer4 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+@keyframes caer5 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+@keyframes caer6 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+@keyframes caer7 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+@keyframes caer8 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+@keyframes caer9 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+@keyframes caer10 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+@keyframes caer11 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+@keyframes caer12 { from { transform: translateY(0); } to { transform: translateY(120vh); } }
+    .footer-content {
+        max-width: 1000px; /* Ancho máximo del contenido */
+        margin: 0 auto; /* Centra el contenido */
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .footer-content p {
+        margin-bottom: 10px;
+    }
+
+    .footer-social {
+        display: flex;
+        gap: 15px; /* Espacio entre los iconos */
+    }
+
+    .footer-social img {
+        width: 34px; /* Tamaño de los iconos */
+        height: 34px;
+       
+       
+    }
+
+    .footer-social img:hover {
+      color: #a18800;
+    }
+   
+    
+    footer:hover{
+      text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5); 
+    color:#5a4d04;}
+ .footer-social:hover{
+      color: #a18800}
+    @media (max-width: 768px) {
+        .footer-content {
+            padding: 20px 15px;
+        }
+
+        .footer-social {
+            gap: 10px;
+        }
+
+        .footer-social img {
+            width: 20px;
+            height: 20px;
+        }
+    }
+.copy{
+    font-weight: bold;
+}
+.footer-social{
+    font-weight: bold;
+    width: 20%; 
+    align-items: center; 
+    justify-content: center;
+    text-align: center;
+
+}
+.footer-social:hover{
+  transition: transform 0.2s ease-in-out; /* Ajusta el tiempo y la función de transición */
+  /* Escala el icono para agrandarlo */
+  transform: scale(1.1); /* Ajusta la escala (1.2 = 20% más grande) */
+}
+
+a{
+    text-decoration: none;
+    color:#333
+}
+.footer-social a:hover i {
+  text-shadow: 3px 3px 7px rgba(0, 0, 0, 0.5);
+}
+
+#backToTop:hover{
+   
+  transform: scale(1.2);
+}
+b{
+  font-size: 22px;
+}
+b:hover{color:#5a4d04;
+ text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  }
+  footer{
+    background: linear-gradient(to right, white, #888888);
+  }
+  nav{
+     background: linear-gradient(to right, white, #888888);
+  }
+  </style>
+</head>
+
+<body>
+  <audio id="musica" autoplay loop style="display: none;">
+  <source src="audio/doctor.mp3" type="audio/mpeg">
+</audio>
+
+  <header id="inicio">
+    <h1>Doctor en Alaska</h1>
+    <p class="serie">Una serie inolvidable sobre humanidad, humor y vida en el entorno inhóspito de Alaska</p>
+  </header>
+
+  <nav>
+    <ul>
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#historia">Historia</a></li>
+      <li><a href="#personajes">Personajes</a></li>
+      <li><a href="#galeria">Galería</a></li>
+    </ul>
+  </nav>
+
+  <section id="historia">
+    <h2>Historia</h2>
+    <p><i><b>Doctor en Alaska</i></b> (<i>Northern Exposure</i>) narra la historia del Doctor Joel Fleischman, un médico neoyorquino destinado a ejercer en un pequeño pueblo remoto de Alaska llamado Cicely. Lo que comienza como una condena profesional, se acabará transformando para él en una experiencia vital única e irrepetible, rodeado de los más variopintos y entrañables personajes en un mundo totalmente opuesto a Nueva York y donde  se mezcla  magia y realidad, profundas reflexiones existenciales y un entorno natural imponente.</p>
+    <p>Cada episodio narra sus problemas para adaptarse a un medio hostil y sus relaciones con unos vecinos tan entrañables como peculiares, daban pie a todo tipo de situaciones divertidas y con un toque surrealista y original. Todo gracias a un guión muy bien elaborado en el que destacan unos personajes realmente bien trazados encarnados por un excelente grupo de actores.</p>
+    <p>A pesar de desarrollarse en una gélida población de Alaska denominada Cicely, en realidad esta ciudad nunca existió y la serie se rodó en el estado de Washington, en las poblaciones de Redmond y Roslyn. En esta segunda es donde se encuentra el célebre cartel del Cafe Roslyn que aparecía en la cabecera y por delante del cual pasaba el mítico arce.</p>
+    <p>La serie se estrenó originalmente en Estados Unidos el 12 de julio de 1990 en la cadena CBS y llegó a su fin el 26 de julio de 1995, tras seis temporadas en antena y un gran éxito de crítica y público.
+
+En nuestro país, se emitió en La2 de Televisión Española, desde abril de 1993. Su escasa aunque fiel audiencia hizo que cambiara de día y hora de emisión en numerosas ocasiones, hasta ser relegada a la franja de madrugada.</p>
+<p>Rob Morrow, como el Dr. Joel Fleischman, fue el actor principal de un reparto que compartía, entre otros, con Janine Turner, como ‘Maggie’ O’Connell, Barry Corbin, como Maurice J. Minnifield, John Corbett, como Christopher Danforth Stevens, Darren E. Burrows, como Ed Chigliak, John Cullum, como Holling Gustav Vincoeur y Cynthia Geary, como Shelly Marie Tambo.
+
+Un elenco que recreaba un ambiente entrañable que, desgraciadamente, no lo era tanto cuando las cámaras dejaban de rodar. De hecho, la serie finalizó porque Rob Morrow, tras el éxito de la serie, pidió un aumento de sueldo que no le fue concedido (y motivó que se fuera para rodar una película).</p>
+<p>Cicely era igual a todos los pueblos, pero diferente a todos. Solo había que mirar más de cerca. Conocer a sus habitantes. Personajes lejos de ser arquetipos, personajes con molde propio: el ex convicto, locutor de radio y filósofo; la rica heredera convertida en única piloto del pueblo; el ex astronauta con ambiciones turísticas… En Cicely todo el mundo puede ser como quiera ser. Unos pilares que agradecen a sus fundadoras: dos pioneras feministas, Cicely y Roslyn, que llegaron al lugar a principios del siglo XX enfrentándose a todas las convenciones y obstáculos. Con el recuerdo de esas mujeres, se construyó este pueblo (Roslyn se llamaba el café principal, claro) en el que todo es posible, en el que todo el mundo tiene un lugar. Y por eso pasa de todo allí.  
+  <p>Estrafalaria, extravagante, del realismo mágico, surrealista… Son palabras asociadas a Doctor en Alaska. Porque era todas ellas. Porque en esa diversidad exclusiva residía su encanto y su enganche. Porque se adelantaron a conversaciones de identidad o género, por ejemplo, que podemos tener ahora. Y recordemos, eran los 90. Aún no había llegado la cacareada Edad de Oro de las series, aunque, por supuesto, Cicely y Twin Peaks fueron preparando el camino. Era única entonces y hoy, con todo lo que hemos visto y todo lo que tenemos disponible, aún lo es.  </p>
+  <p>Durante años se habló de un regreso a Cicely, pero un nuevo regreso. Es decir, una nueva serie, un relanzamiento, un reboot. Un reencuentro con los personajes. Los planes nunca han salido adelante. Quizá por la muerte de uno de sus colaboradores, John Falsey. O quizá porque es imposible repetir esa conjunción de tono, mensaje, interpretaciones. Ese bienestar particular y universal. Quizá porque Cicely es imposible de repetir. </p>
+</p>
+    <img class="portada" src="imagenes/portada.webp" alt="Elenco principal de Doctor en Alaska">
+  </section>
+
+  <section id="personajes">
+    <h2>Personajes Principales</h2>
+   
+    
+        <div class="character-gallery">
+          <div class="character">
+            <img src="imagenes/joel.jpg" alt="Dr. Joel Fleischman">
+            <span class="nombre">Joel Fleischman</span>
+          </div>
+          <div class="character">
+            <img src="imagenes/maggie.jpg" alt="Maggie O'Connell">
+            <span class="nombre">Maggie O'Connell</span>
+          </div>
+          <div class="character">
+            <img src="imagenes/cris.jpg" alt="Chris Stevens">
+            <span class="nombre">Chris Stevens</span>
+          </div>
+          <div class="character">
+            <img src="imagenes/marilyn.webp" alt="Marilyn Whirlwind">
+            <span class="nombre">Marilyn Whirlwind</span>
+          </div>
+          <div class="character">
+            <img src="imagenes/maurice.webp" alt="Maurice Minnifield">
+            <span class="nombre">Maurice Minnifield</span>
+          </div>
+          <div class="character">
+            <img src="imagenes/ed.jpg" alt="Ed Chigliak">
+            <span class="nombre">Ed Chigliak</span>
+          </div>
+        </div>
+      </section>
+  </section>
+
+  <section id="galeria">
+    <h2>Galería</h2>
+    <p class="galeria">Cicely no existe. Supuestamente inspirado en Talkeetna, un adorable pueblo de Alaska frente a uno de los montes más famosos del estado y de todo EE.UU., el Denali, la producción nunca tocó la región. Rodaron siempre en el estado de Washington, entre las poblaciones de Roslyn y Redmond. Ni siquiera Mort era originario de Alaska sino del mismo Washington.  
+
+</p>
+  
+    <div class="carrusel">
+      <div class="imagen-container">
+        <img src="imagenes/cafe.webp" alt="Roslyn Cafe">
+        <img src="imagenes/cicely.jpg" alt="Pueblo de Cicely">
+        <img src="imagenes/tienda.webp" alt="Bar de Cicely">
+        <img src="imagenes/calles.webp" alt="Tienda de Cicely">
+      </div>
+      <button class="flecha izquierda">&#10094;</button>
+      <button class="flecha derecha">&#10095;</button>
+    </div>
+  </section>
+
+  <button id="backToTop" onclick="scrollToTop()">↑</button>
+
+  <script>
+    const backToTop = document.getElementById("backToTop");
+
+    window.onscroll = () => {
+      if (window.scrollY > 400) {
+        backToTop.style.display = "block";
+      } else {
+        backToTop.style.display = "none";
+      }
+    };
+
+    function scrollToTop() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    
+  const carrusel = document.querySelector('.imagen-container');
+  const total = carrusel.children.length;
+  let index = 0;
+
+  document.querySelector('.flecha.derecha').addEventListener('click', () => {
+    index = (index + 1) % total;
+    carrusel.style.transform = `translateX(-${index * 100}%)`;
+  });
+
+  document.querySelector('.flecha.izquierda').addEventListener('click', () => {
+    index = (index - 1 + total) % total;
+    carrusel.style.transform = `translateX(-${index * 100}%)`;
+  });
+  
+  document.addEventListener('DOMContentLoaded', function () {
+    const audio = document.getElementById('musica');
+    
+    function iniciarMusica() {
+      audio.play();
+      document.removeEventListener('click', iniciarMusica);
+    }
+
+    document.addEventListener('click', iniciarMusica);
+  });
+const footer = document.querySelector('footer');
+const numCopos = 50; // Cantidad de copos
+
+function crearCopo() {
+  const copo = document.createElement('div');
+  copo.classList.add('copo-nieve');
+  copo.style.backgroundColor = '#ADD8E6';
+  copo.style.width = `${Math.random() * 15 + 5}px`; // Tamaño aleatorio entre 5 y 20px
+  copo.style.height = copo.style.width;
+  copo.style.left = `${Math.random() * 100}vw`; // Posición horizontal aleatoria en la ventana
+  copo.style.animationDuration = `${Math.random() * 5 + 3}s`; // Duración aleatoria entre 3 y 8 segundos
+  copo.style.animationDelay = `${Math.random() * 2}s`; // Retraso aleatorio
+  copo.style.opacity = Math.random() * 0.5 + 0.5; // Opacidad aleatoria entre 0.5 y 1
+  footer.appendChild(copo);
+
+  copo.addEventListener('animationiteration', () => {
+    copo.remove(); // Elimina el copo al final de la animación
+    crearCopo(); // Crea un nuevo copo
+  });
+}
+
+for (let i = 0; i < numCopos; i++) {
+  crearCopo();
+}
+
+  
+
+  </script>
+
+
+<footer id="footer">
+  <div class="copo-nieve copo1"></div>
+  <div class="copo-nieve copo2"></div>
+  <div class="copo-nieve copo3"></div>
+  <div class="copo-nieve copo4"></div>
+  <div class="copo-nieve copo5"></div>
+  <div class="copo-nieve copo6"></div>
+  <div class="copo-nieve copo7"></div>
+  <div class="copo-nieve copo8"></div>
+  <div class="copo-nieve copo9"></div>
+  <div class="copo-nieve copo10"></div>
+  <div class="copo-nieve copo11"></div>
+  <div class="copo-nieve copo12"></div>
+    <div class="footer-content">
+        <p class="copy">&copy; 2025 Doctor en Alaska</p>
+        <div class="footer-social">
+            <a href="https://www.facebook.com/groups/doctorenalaska/?locale=es_ES" target="_blank"><img src="imagenes/facebook.png" alt="Facebook"></a>
+            <a href="https://x.com/cicely4ever" target="_blank"><img src="imagenes/twitter.png" alt="Twitter"></a>
+            <a href="https://www.instagram.com/doctorenalaska_es/" target="_blank"><img src="imagenes/instagram.png" alt="Instagram"></a>
+            </div>
+    </div>
+</footer>
+
+
+</body>
+</html>
+
